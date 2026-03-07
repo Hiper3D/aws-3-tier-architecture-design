@@ -1,5 +1,6 @@
 # aws-3-tier-architecture-design
 Highly Available 3-Tier Web Architecture on AWS ☁️
+
 📌 Project Overview
 This project visualizes a secure, highly available, and fault-tolerant three-tier web application architecture on Amazon Web Services (AWS). It was designed as part of the hands-on architectural requirements for the AWS Cloud Support Associate professional certificate on Coursera.
 
