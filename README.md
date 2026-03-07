@@ -7,7 +7,7 @@ This project visualizes a secure, highly available, and fault-tolerant three-tie
 The goal of this design is to demonstrate best practices in cloud networking, traffic distribution, and database redundancy by isolating resources across public and private subnets within a Virtual Private Cloud (VPC).
 
 🏗️ Architecture Diagram:
-(Upload your diagram image to your GitHub repo, then replace the link below with the actual image path)
+(AWSDiagram.drawio.svg)
 
 ⚙️ Core AWS Components:
 Networking (Amazon VPC): A custom VPC spanning two Availability Zones (AZ A and AZ B) to ensure high availability and fault tolerance.
