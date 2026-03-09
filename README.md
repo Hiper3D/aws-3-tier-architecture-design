@@ -1,35 +1,39 @@
-# aws-3-tier-architecture-design
-Highly Available 3-Tier Web Architecture on AWS ☁️
+# ☁️ Highly Available 3-Tier Web Architecture on AWS
 
-📌 Project Overview:
-This project visualizes a secure, highly available, and fault-tolerant three-tier web application architecture on Amazon Web Services (AWS). It was designed as part of the hands-on architectural requirements for the AWS Cloud Support Associate professional certificate on Coursera.
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-web-services&logoColor=white)
+![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white)
+![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
+![Amazon VPC](https://img.shields.io/badge/Amazon%20VPC-8C4FFF?style=for-the-badge&logo=Amazon%20VPC&logoColor=white)
 
-The goal of this design is to demonstrate best practices in cloud networking, traffic distribution, and database redundancy by isolating resources across public and private subnets within a Virtual Private Cloud (VPC).
+## 📌 Executive Overview
+This repository documents the structural design of a secure, highly available, and fault-tolerant three-tier web application architecture provisioned on AWS (Amazon Web Services - a comprehensive cloud computing platform). Architected to fulfill the rigorous hands-on requirements of the AWS Cloud Support Associate professional certificate, this project demonstrates enterprise-grade cloud networking capabilities. 
 
-🏗️ Architecture Diagram:
-(AWSDiagram.drawio.svg)
+The core objective is to showcase best practices in traffic distribution, network isolation, and database redundancy by strategically decoupling resources across public and private subnets within a custom VPC (Virtual Private Cloud - a secure, isolated private cloud hosted within a public cloud).
 
-⚙️ Core AWS Components:
-Networking (Amazon VPC): A custom VPC spanning two Availability Zones (AZ A and AZ B) to ensure high availability and fault tolerance.
+## 🏗️ Architecture Topology
+*(Please reference `AWSDiagram.drawio.svg` in the repository files for the visual network topology).*
 
-Public Web Tier: (Application Load Balancer): An ALB deployed in the public subnets acts as the single entry point. It receives incoming client traffic via an Internet Gateway (IGW) and distributes it evenly across healthy compute instances.
+## ⚙️ Core Infrastructure Components
 
-Private Compute Tier: (Amazon EC2): Application servers reside in isolated private subnets, ensuring they cannot be accessed directly from the public internet, thereby enhancing security.
+### 1. Network Foundation
+* **Amazon VPC:** Engineered a custom VPC (Virtual Private Cloud - a secure, isolated private cloud hosted within a public cloud) spanning two distinct AZs (Availability Zones - isolated locations within data center regions from which public cloud services originate and operate) to guarantee high availability and robust fault tolerance.
 
-Private Database Tier: (Amazon RDS): A Multi-AZ MySQL deployment situated in dedicated database subnets. It features a Primary instance for active queries and a Standby instance utilizing synchronous replication for automatic failover.
+### 2. Presentation Tier (Public Web)
+* **Traffic Management:** Deployed an ALB (Application Load Balancer - a load balancing service for web applications operating at the application layer) within the public subnets to act as the single, secure ingress point. It receives external client requests via an IGW (Internet Gateway - a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet) and intelligently distributes the payload evenly across healthy compute instances.
 
-🚦 Traffic Flow:
-Client to Backend:
-When a client initiates a request from the internet to query data, the traffic enters the VPC through the Internet Gateway and is routed to the Application Load Balancer. The ALB evaluates the health of the compute layer and forwards the request to an available EC2 instance located securely in a private subnet. The EC2 instance processes the application logic and securely queries the Primary Amazon RDS database.
+### 3. Logic Tier (Private Compute)
+* **Secure Compute:** Provisioned Amazon EC2 (Elastic Compute Cloud - a web service that provides secure, resizable compute capacity in the cloud) application servers within deeply isolated private subnets. This strict segregation ensures the application layer cannot be targeted directly from the public internet, drastically reducing the external attack surface.
 
-Database to Client:
-After the Primary RDS database successfully processes the query, it returns the requested data back to the originating EC2 instance. The EC2 instance formats this data into a web response and sends it back to the ALB. The ELB then routes the final response out through the Internet Gateway and back over the internet to the client.
+### 4. Data Tier (Private Database)
+* **High-Availability Storage:** Configured a Multi-AZ Amazon RDS (Relational Database Service - a distributed relational database service) MySQL deployment situated in dedicated, backend database subnets. The architecture features a Primary instance handling active queries and a Standby instance leveraging synchronous replication for seamless, automatic failover.
 
-💡 Key Skills Demonstrated:
-Cloud Infrastructure Design
+## 🚦 End-to-End Traffic Lifecycle
 
-Network Security & Isolation (Public vs. Private Subnets)
+* **Ingress (Client to Backend):** When a client initiates a data query, the traffic enters the VPC (Virtual Private Cloud - a secure, isolated private cloud hosted within a public cloud) through the IGW (Internet Gateway - a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet) and is securely routed to the ALB (Application Load Balancer - a load balancing service for web applications operating at the application layer). The ALB evaluates the health of the logic layer and forwards the payload to an available EC2 (Elastic Compute Cloud - a web service that provides secure, resizable compute capacity in the cloud) instance. The instance processes the application logic and securely queries the primary data tier.
+* **Egress (Database to Client):** Upon successful query execution, the Primary RDS (Relational Database Service - a distributed relational database service) instance returns the localized data to the originating EC2 instance. The server formats this into a web response and passes it back to the load balancer. Finally, the ELB (Elastic Load Balancing - automatically distributes incoming application traffic across multiple targets) routes the finalized response out through the internet gateway back to the user.
 
-High Availability & Disaster Recovery (Multi-AZ Deployments)
-
-Traffic Load Balancing
+## 💡 Core Engineering Competencies
+* **Cloud Infrastructure Design:** Architecting scalable, decoupled enterprise environments.
+* **Network Security & Isolation:** Strategic implementation of public vs. private subnets.
+* **Disaster Recovery:** Ensuring high availability via Multi-AZ deployments and synchronous replication.
+* **Traffic Optimization:** Advanced load balancing and secure gateway routing.
